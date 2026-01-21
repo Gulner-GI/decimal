@@ -3,187 +3,187 @@
 #include "../s21_decimal.h"
 
 START_TEST(test_scale_0) {
-  s21_decimal d = {10, 10, 10, 0b00000000000000000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000000000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_1) {
-  s21_decimal d = {10, 10, 10, 0b00000000000000010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000000010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_2) {
-  s21_decimal d = {10, 10, 10, 0b00000000000000100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000000100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_3) {
-  s21_decimal d = {10, 10, 10, 0b00000000000000110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000000110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_4) {
-  s21_decimal d = {10, 10, 10, 0b00000000000001000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000001000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_5) {
-  s21_decimal d = {10, 10, 10, 0b00000000000001010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000001010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_6) {
-  s21_decimal d = {10, 10, 10, 0b00000000000001100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000001100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_7) {
-  s21_decimal d = {10, 10, 10, 0b00000000000001110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000001110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_8) {
-  s21_decimal d = {10, 10, 10, 0b00000000000010000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000010000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_9) {
-  s21_decimal d = {10, 10, 10, 0b00000000000010010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000010010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_10) {
-  s21_decimal d = {10, 10, 10, 0b00000000000010100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000010100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_11) {
-  s21_decimal d = {10, 10, 10, 0b00000000000010110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000010110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_12) {
-  s21_decimal d = {10, 10, 10, 0b00000000000011000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000011000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_13) {
-  s21_decimal d = {10, 10, 10, 0b00000000000011010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000011010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_14) {
-  s21_decimal d = {10, 10, 10, 0b00000000000011100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000011100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_15) {
-  s21_decimal d = {10, 10, 10, 0b00000000000011110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000011110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_16) {
-  s21_decimal d = {10, 10, 10, 0b00000000000100000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000100000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_17) {
-  s21_decimal d = {10, 10, 10, 0b00000000000100010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000100010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_18) {
-  s21_decimal d = {10, 10, 10, 0b00000000000100100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000100100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_19) {
-  s21_decimal d = {10, 10, 10, 0b00000000000100110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000100110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_20) {
-  s21_decimal d = {10, 10, 10, 0b00000000000101000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000101000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_21) {
-  s21_decimal d = {10, 10, 10, 0b00000000000101010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000101010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_22) {
-  s21_decimal d = {10, 10, 10, 0b00000000000101100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000101100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_23) {
-  s21_decimal d = {10, 10, 10, 0b00000000000101110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000101110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_24) {
-  s21_decimal d = {10, 10, 10, 0b00000000000110000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000110000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_25) {
-  s21_decimal d = {10, 10, 10, 0b00000000000110010000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000110010000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_26) {
-  s21_decimal d = {10, 10, 10, 0b00000000000110100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000110100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_27) {
-  s21_decimal d = {10, 10, 10, 0b00000000000110110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000110110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_28) {
-  s21_decimal d = {10, 10, 10, 0b00000000000111000000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000111000000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 1);
 }
 END_TEST
 
 START_TEST(test_scale_29) {
-  s21_decimal d = {10, 10, 10, 0b00000000000111100000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000000111100000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 0);
 }
 END_TEST
 
 START_TEST(test_scale_30) {
-  s21_decimal d = {10, 10, 10, 0b00000000111111110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000111111110000000000000000}};
   ck_assert_int_eq(is_valid_decimal(d), 0);
 }
 END_TEST

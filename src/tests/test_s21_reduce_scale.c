@@ -7,8 +7,8 @@
 // test_reduce_scale_preserves_sign
 
 START_TEST(test_reduce_scale_no_change_when_scale_valid) {
-  s21_decimal d = {100, 0, 0, 0b00000000000111000000000000000000};
-  s21_decimal original = {100, 0, 0, 0b00000000000111000000000000000000};
+  s21_decimal d = {{100, 0, 0, 0b00000000000111000000000000000000}};
+  s21_decimal original = {{100, 0, 0, 0b00000000000111000000000000000000}};
 
   reduce_scale(&d);
 
@@ -20,8 +20,8 @@ START_TEST(test_reduce_scale_no_change_when_scale_valid) {
 END_TEST
 
 START_TEST(test_reduce_scale_reduce_by_one) {
-  s21_decimal d = {20, 0, 0, 0b00000000000111010000000000000000};
-  s21_decimal original = {2, 0, 0, 0b00000000000111000000000000000000};
+  s21_decimal d = {{20, 0, 0, 0b00000000000111010000000000000000}};
+  s21_decimal original = {{2, 0, 0, 0b00000000000111000000000000000000}};
 
   reduce_scale(&d);
 
@@ -33,8 +33,9 @@ START_TEST(test_reduce_scale_reduce_by_one) {
 END_TEST
 
 START_TEST(test_reduce_scale_with_carry_from_middle) {
-  s21_decimal d = {0, 1, 0, 0b00000000000111010000000000000000};
-  s21_decimal original = {429496729, 0, 0, 0b00000000000111000000000000000000};
+  s21_decimal d = {{0, 1, 0, 0b00000000000111010000000000000000}};
+  s21_decimal original = {
+      {429496729, 0, 0, 0b00000000000111000000000000000000}};
 
   reduce_scale(&d);
 
@@ -46,9 +47,9 @@ START_TEST(test_reduce_scale_with_carry_from_middle) {
 END_TEST
 
 START_TEST(test_reduce_scale_with_carry_from_high) {
-  s21_decimal d = {0, 0, 1, 0b00000000000111010000000000000000};
-  s21_decimal original = {2576980377, 429496729, 0,
-                          0b00000000000111000000000000000000};
+  s21_decimal d = {{0, 0, 1, 0b00000000000111010000000000000000}};
+  s21_decimal original = {
+      {2576980377, 429496729, 0, 0b00000000000111000000000000000000}};
 
   reduce_scale(&d);
 
@@ -60,8 +61,8 @@ START_TEST(test_reduce_scale_with_carry_from_high) {
 END_TEST
 
 START_TEST(test_reduce_scale_reduce_multiple_times) {
-  s21_decimal d = {1000000000, 0, 0, 0b00000000000111110000000000000000};
-  s21_decimal original = {1000000, 0, 0, 0b00000000000111000000000000000000};
+  s21_decimal d = {{1000000000, 0, 0, 0b00000000000111110000000000000000}};
+  s21_decimal original = {{1000000, 0, 0, 0b00000000000111000000000000000000}};
 
   reduce_scale(&d);
 

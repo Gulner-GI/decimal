@@ -3,13 +3,13 @@
 #include "../s21_decimal.h"
 
 START_TEST(test_negative_sign) {
-  s21_decimal d = {10, 10, 10, 0b10000000111111110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b10000000111111110000000000000000}};
   ck_assert_int_eq(get_sign(d), 1);
 }
 END_TEST
 
 START_TEST(test_positive_sign) {
-  s21_decimal d = {10, 10, 10, 0b00000000111111110000000000000000};
+  s21_decimal d = {{10, 10, 10, 0b00000000111111110000000000000000}};
   ck_assert_int_eq(get_sign(d), 0);
 }
 END_TEST
