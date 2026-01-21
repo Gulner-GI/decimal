@@ -14,9 +14,9 @@ START_TEST(test_positive_sign) {
 }
 END_TEST
 
-Suite* get_sign_suite(void) {
-  Suite* s = suite_create("s21_get_sign");
-  TCase* tc_core = tcase_create("Core");
+Suite *get_sign_suite(void) {
+  Suite *s = suite_create("s21_get_sign");
+  TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_positive_sign);
   tcase_add_test(tc_core, test_negative_sign);

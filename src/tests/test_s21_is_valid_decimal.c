@@ -188,9 +188,9 @@ START_TEST(test_scale_30) {
 }
 END_TEST
 
-Suite* is_valid_decimal_suite(void) {
-  Suite* s = suite_create("s21_is_valid_decimal");
-  TCase* tc_core = tcase_create("Core");
+Suite *is_valid_decimal_suite(void) {
+  Suite *s = suite_create("s21_is_valid_decimal");
+  TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_scale_0);
   tcase_add_test(tc_core, test_scale_1);

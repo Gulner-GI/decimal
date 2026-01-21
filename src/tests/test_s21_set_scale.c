@@ -263,9 +263,9 @@ START_TEST(test_scale_28) {
 }
 END_TEST
 
-Suite* set_scale_suite(void) {
-  Suite* s = suite_create("s21_set_scale");
-  TCase* tc_core = tcase_create("Core");
+Suite *set_scale_suite(void) {
+  Suite *s = suite_create("s21_set_scale");
+  TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_scale_0);
   tcase_add_test(tc_core, test_scale_1);

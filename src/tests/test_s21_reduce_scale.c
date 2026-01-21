@@ -72,9 +72,9 @@ START_TEST(test_reduce_scale_reduce_multiple_times) {
 }
 END_TEST
 
-Suite* reduce_scale_suite(void) {
-  Suite* s = suite_create("s21_reduce_scale");
-  TCase* tc_core = tcase_create("Core");
+Suite *reduce_scale_suite(void) {
+  Suite *s = suite_create("s21_reduce_scale");
+  TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_reduce_scale_no_change_when_scale_valid);
   tcase_add_test(tc_core, test_reduce_scale_reduce_by_one);

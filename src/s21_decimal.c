@@ -5,7 +5,7 @@ int get_sign(s21_decimal dec) {
   return result;
 }
 
-void set_sign(s21_decimal* dec, int sign) {
+void set_sign(s21_decimal *dec, int sign) {
   if (sign) {
     dec->bits[3] |= (1 << 31);
   } else {
@@ -18,7 +18,7 @@ int get_scale(s21_decimal dec) {
   return result;
 }
 
-void set_scale(s21_decimal* dec, int scale) {
+void set_scale(s21_decimal *dec, int scale) {
   dec->bits[3] &= ~(0b11111111 << 16);
   dec->bits[3] |= (scale & 0b11111111) << 16;
 }
@@ -32,7 +32,7 @@ int is_valid_decimal(s21_decimal dec) {
   return (scale >= 0 && scale <= 28);
 }
 
-void reduce_scale(s21_decimal* dec) {
+void reduce_scale(s21_decimal *dec) {
   while (get_scale(*dec) > 28) {
     int remainder = 0;
     for (int i = 2; i >= 0; i--) {
@@ -44,7 +44,7 @@ void reduce_scale(s21_decimal* dec) {
   }
 }
 
-int increase_scale(s21_decimal* dec) {
+int increase_scale(s21_decimal *dec) {
   int result = 0;
   unsigned int carry = 0;
 
@@ -54,36 +54,31 @@ int increase_scale(s21_decimal* dec) {
     dec->bits[i] = (unsigned int)(temp & 0b11111111111111111111111111111111);
     carry = (unsigned int)(temp >> 32);
   }
-
   if (carry != 0) {
     result = 1;
   } else {
     scale++;
     set_scale(dec, scale);
   }
-
   return result;
 }
 
-void normalize_scale(s21_decimal* dec1, s21_decimal* dec2) {
+void normalize_scale(s21_decimal *dec1, s21_decimal *dec2) {
   int scale1 = get_scale(*dec1);
   if (scale1 > 28) {
     reduce_scale(dec1);
     scale1 = get_scale(*dec1);
   }
-
   int scale2 = get_scale(*dec2);
   if (scale2 > 28) {
     reduce_scale(dec2);
     scale2 = get_scale(*dec2);
   }
-
   while (scale1 < scale2) {
     scale1++;
     increase_scale(dec1);
   }
   set_scale(dec1, scale1);
-
   while (scale2 < scale1) {
     scale2++;
     increase_scale(dec2);

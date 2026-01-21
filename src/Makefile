@@ -1,73 +1,70 @@
-GCC         := gcc -Wall -Werror -Wextra -std=c11
-TARGET      := s21_decimal
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c11 -fprofile-arcs -ftest-coverage
+TEST_FLAGS = -lcheck -lm -lpthread -lsubunit
 
-SOURCES     := $(wildcard *.c)
-HEADERS     := $(wildcard *.h)
+PROJECT_NAME = matrix
 
-TEST_SRCS   := $(wildcard tests/test_s21_*.c)
-TEST_NAMES  := $(TEST_SRCS:tests/test_s21_%.c=%)
+LIBRARY_NAME = s21_$(PROJECT_NAME)
+LIBRARY = $(BUILD_DIR)/$(LIBRARY_NAME).a
+TEST_TARGET = $(BUILD_DIR)/test_$(LIBRARY_NAME)
 
-GCOV_DIR := gcov/
+SRC_DIR = .
+TEST_DIR = tests
+BUILD_DIR = build
+COVERAGE_DIR = $(BUILD_DIR)/coverage_html
+COVERAGE_INFO = $(BUILD_DIR)/coverage.info
 
-OS := $(shell uname -s)
-ifeq ($(OS), Darwin)
-    CHECK_FLAGS := $(shell pkg-config --cflags --libs check)
-    OPEN_CMD    := open
-else
-    CHECK_FLAGS := -lcheck -lpthread -lm -lrt -lsubunit
-    OPEN_CMD    := xdg-open
-endif
+SOURCES = $(wildcard *.c)
+OBJECTS = $(SOURCES:%.c=$(BUILD_DIR)/%.o)
+HEADERS = $(wildcard *.h)
 
-.PHONY: all clean test gcov_report clang
+TEST_SOURCES = $(wildcard $(TEST_DIR)/*.c)
+TEST_OBJECTS = $(TEST_SOURCES:$(TEST_DIR)/%.c=$(BUILD_DIR)/%.o)
 
-all: $(TARGET).a
+all: library test
 
-rebuild: clean all
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-$(TARGET).a: $(TARGET).c
-	@$(GCC) -c $< -o $(TARGET).o
-	@ar rcs $@ $(TARGET).o
-	@ranlib $@
-	@echo "Библиотека $(TARGET).a собралась"
+library: $(LIBRARY)
 
-main: main.c $(TARGET).a
-	@$(GCC) main.c $(TARGET).a
-	@echo "main скомпилирован и связан с $(TARGET).a"
+$(LIBRARY): $(OBJECTS) | $(BUILD_DIR)
+	ar rcs $@ $^
+	ranlib $@
 
-test: clean $(TARGET).a
-	@bash tests/run_tests.sh "$(CHECK_FLAGS)"
+test: $(TEST_TARGET)
 
-gcov_report: clean
-	@echo "Создание отчета о покрытии..."
-	@mkdir -p $(GCOV_DIR)
-	@$(GCC) --coverage $(TARGET).c tests/*.c $(CHECK_FLAGS) -o $(GCOV_DIR)/gcov_test
-	@cd $(GCOV_DIR) && ./gcov_test > /dev/null
-	@lcov -t "$(TARGET)" -o $(GCOV_DIR)/coverage.info -c -d $(GCOV_DIR) --ignore-errors graph,unused > /dev/null
-	@lcov --remove $(GCOV_DIR)/coverage.info '*/tests/*' -o $(GCOV_DIR)/coverage.info --ignore-errors unused > /dev/null
-	@genhtml -o report $(GCOV_DIR)/coverage.info > /dev/null
-	@echo "Отчёт готов, введи команду: open report/index.html"
+$(TEST_TARGET): $(LIBRARY) $(TEST_OBJECTS) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -o $@ $(TEST_OBJECTS) $(LIBRARY) $(TEST_FLAGS)
+
+$(BUILD_DIR)/%.o: %.c $(HEADERS) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o: $(TEST_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
+
+run_test: test
+	./$(TEST_TARGET)
 
 clean:
-	@rm -rf *.o *.a tests/bin report gcov
-	@rm -f tests/test_results.log tests/failed.log tests/*.gcda tests/*.gcno tests/*.info gcov_test tests/*.o
-	@rm -f .clang-format
-	@rm -f tests/.clang-format
-	@rm -f a.out
-	@echo "Чистка завершена"
+	rm -rf $(BUILD_DIR) coverage_html coverage.info
 
+rebuild: clean all
+	
 clang:
-	@cp ../materials/linters/.clang-format .
-	@clang-format -i *.c *.h
-	@cp .clang-format tests/
-	@clang-format -i tests/*.c
-	@rm -f .clang-format
-	@rm -f tests/.clang-format
-	@echo "Код отформатирован clang-format'ом"
+	clang-format -n $(SOURCES) $(HEADERS) $(TEST_SOURCES)
+	clang-format -i $(SOURCES) $(HEADERS) $(TEST_SOURCES)
 
 cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem $(SOURCES) $(TEST_SRCS)
-	@echo "Код прошел cppcheck"
+	cppcheck --enable=all --suppress=missingIncludeSystem $(SOURCES) $(TEST_SOURCES)
 
-leaks:
-	valgrind --tool=memcheck --leak-check=yes ./tests/bin/test_run
-	@echo "Код проверен на утечки valgrind'ом"
+leaks: $(TEST_TARGET)
+	valgrind --tool=memcheck --leak-check=yes ./$(TEST_TARGET)
+
+gcov_report: $(TEST_TARGET)
+	./$(TEST_TARGET)
+	lcov --capture --directory $(BUILD_DIR) --output-file $(COVERAGE_INFO)
+	lcov --remove $(COVERAGE_INFO) "*/tests/*" --output-file $(COVERAGE_INFO)
+	genhtml $(COVERAGE_INFO) --output-directory $(COVERAGE_DIR)
+
+.PHONY: all clean rebuild cppcheck clang leaks library test run_test gcov_report

@@ -50,9 +50,9 @@ START_TEST(test_7) {
 }
 END_TEST
 
-Suite* is_zero_suite(void) {
-  Suite* s = suite_create("s21_is_zero");
-  TCase* tc_core = tcase_create("Core");
+Suite *is_zero_suite(void) {
+  Suite *s = suite_create("s21_is_zero");
+  TCase *tc_core = tcase_create("Core");
 
   tcase_add_test(tc_core, test_0);
   tcase_add_test(tc_core, test_1);
