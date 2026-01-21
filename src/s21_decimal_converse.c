@@ -23,25 +23,34 @@ int s21_from_int_to_decimal(int src, s21_decimal *dst) {
 
 int s21_from_float_to_decimal(float src, s21_decimal *dst) {
   int status = OK;
-  int scale = 0;
-  double src_abs = src;
-  if (src < 0) {
-    set_sign(dst, 1);
-    src_abs = -src_abs;
+  if (!dst) {
+    status = ERROR;
   } else {
-    set_sign(dst, 0);
+    int scale = 0;
+    double src_abs = src;
+    if (src < 0) {
+      set_sign(dst, 1);
+    } else {
+      set_sign(dst, 0);
+    }
+    while (src_abs - (long)src_abs > 0 && scale < 28) {
+      src_abs *= 10;
+      scale++;
+    }
+    dst->bits[0] = (unsigned int)src_abs;
+    dst->bits[1] = 0;
+    dst->bits[2] = 0;
+    set_scale(dst, scale);
   }
-  while (src_abs - (long)src_abs > 0 && scale <= 28) {
-    src_abs *= 10;
-    scale++;
-  }
-  dst->bits[0] = (unsigned int)src_abs;
-  dst->bits[1] = 0;
-  dst->bits[2] = 0;
-  set_scale(dst, scale);
   return status;
 }
 
-int s21_from_decimal_to_int(s21_decimal src, int *dst) {}
+int s21_from_decimal_to_int(s21_decimal src, int *dst) {
+  int status = OK;
+  return status;
+}
 
-int s21_from_decimal_to_float(s21_decimal src, float *dst) {}
+int s21_from_decimal_to_float(s21_decimal src, float *dst) {
+  int status = OK;
+  return status;
+}
